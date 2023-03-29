@@ -1,0 +1,23 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{calc}
+\pgfmathsetmacro\SIZE{1.75}
+\pgfmathsetmacro\SIZESHIFT{sin(45)*0.5*\SIZE}
+\pgfmathsetmacro\SIZESCALE{0.5*\SIZE}
+\directlua{math.randomseed(4)} %choose pseudorandom number generator seed
+\newcommand\x{\directlua{tex.sprint(math.random()*0.1+0.015)}} %random heights for inner breaking
+\newcommand\randangle{\directlua{tex.sprint(0.1*math.random(100)-5)}} %random changes in angles for inner breaking
+
+\begin{document}
+\begin{tikzpicture}
+\begin{scope}[shift={(\SIZESHIFT,\SIZESHIFT)},scale=\SIZESCALE]
+\clip (45:1) -- (135:1) -- (225:1) -- (315:1) -- cycle;
+\fill[gray, opacity=0.2, even odd rule] (45:1) -- (135:1) -- (225:1) -- (315:1) -- cycle
+
+(0+\randangle:\x) coordinate (A0) foreach \angle in {20,40,...,340} {-- (\angle+\randangle:\x) coordinate (A\angle)} -- cycle;
+
+\foreach \angle in {0, 20, ..., 340}{
+    \draw[ultra thin, white] (0,0) -- ($67*(A\angle)$);
+};
+\end{scope}
+\end{tikzpicture}
+\end{document}

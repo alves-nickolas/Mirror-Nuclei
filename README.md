@@ -1,0 +1,1 @@
+This is a simple code in Tikz intended to draw two atomic nuclei in front of a mirror. The mirror also can be broken and it uses some Lua code to generate random numbers and make the breaking pattern credible. 
